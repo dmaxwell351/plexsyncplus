@@ -1,0 +1,43 @@
+#import <UIKit/UIKit.h>
+
+%hook UIDevice
+
+unsigned long long freeSpace = 0ULL;
+        NSError *error = nil;
+        NSDictionary *dictionary = [[NSFileManager defaultManager] attributesOfFileSystemForPath:path error: &error];
+
+        if (
+
+- (unsigned long long)freeDiskSpace {
+	//unsigned long long origFreeSpace;
+	//origFreeSpace = %orig;
+	
+	//UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"PlexSyncDisableSpaceCalc" message:[NSString stringWithFormat:@"Free space calculated as: %llu", origFreeSpace] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        //[alert show];
+        //[alert release];
+
+	//return origFreeSpace;
+	
+	//return 68719476736ULL;
+
+
+	unsigned long long freeSpace = 0ULL;
+        NSError *error = nil;
+        NSDictionary *dictionary = [[NSFileManager defaultManager] attributesOfFileSystemForPath:path error: &error];
+
+        if (dictionary) {
+            NSNumber *fileSystemFreeSizeInBytes = [dictionary objectForKey: NSFileSystemFreeSize];
+            freeSpace = [fileSystemFreeSizeInBytes unsignedLongLongValue];
+        } else {
+            //Handle error
+        }
+
+        return freeSpace;
+
+	return [getFreeSpaceForPath path:[[NSString alloc] initWithString:@"/mnt/mount1/"]];
+}
+
+%end
+
+%ctor {
+}
