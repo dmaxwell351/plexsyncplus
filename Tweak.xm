@@ -17,7 +17,7 @@
 }
 
 - (unsigned long long)totalDiskSpace {
-    return 68719476736ULL;
+    return 137438953472ULL;
 }
 
 %end
